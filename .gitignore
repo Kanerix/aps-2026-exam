@@ -5,3 +5,9 @@
 exchange_rates
 cookie_selection
 cookie_selection.*/
+
+# clangd
+.cache
+
+# typst
+**.pdf
