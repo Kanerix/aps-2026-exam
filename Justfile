@@ -7,7 +7,7 @@ default:
 # Exchange rates problem
 exchange-rates:
     @rustc -C opt-level=3 -C target-cpu=native --crate-type bin --edition 2021 exchange_rates.rs -o exchange_rates
-    @./exchange_rates
+    @cat data/exchange_rates.in | ./exchange_rates
 
 # Byzzwords problem
 buzzwords:
