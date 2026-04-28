@@ -3,8 +3,8 @@
 
 # Problem binaries
 exchange_rates
-cookie_selection
-cookie_selection.*/
+buzzwords
+buzzwords.*/
 
 # clangd
 .cache

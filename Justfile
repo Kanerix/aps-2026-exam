@@ -11,9 +11,9 @@ exchange-rates:
 
 # Byzzwords problem
 buzzwords:
-    @# g++-14 -g -O2 -o buzzwords -std=gnu++23 -static -lrt -Wl,--whole-archive -lpthread -Wl,--no-whole-archive buzzwords.cpp
-    @g++ -g -O2 -o buzzwords -std=gnu++23 buzzwords.cpp
-    @./cookie_selection
+    @# g++-14 -g -O2 -o buzzwords -std=gnu++23 -static -lrt -Wl,--whole-archive -lpthread -Wl,--no-whole-archive buzzwords.cc
+    @g++ -g -O2 -o buzzwords -std=gnu++23 buzzwords.cc
+    @./buzzwords
 
 # Cookie selection problem
 cookie-selection:
