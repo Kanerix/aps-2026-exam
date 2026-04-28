@@ -1,2 +1,7 @@
 # MacOS
 .DS_Store
+
+# Problem binaries
+exchange_rates
+cookie_selection
+cookie_selection.*/
