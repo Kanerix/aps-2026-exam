@@ -11,11 +11,11 @@ exchange-rates:
 
 # Byzzwords problem
 buzzwords:
-    @# pypy3 'buzzwords.py'
-    @python3 'buzzwords.py'
+    @# g++-14 -g -O2 -o buzzwords -std=gnu++23 -static -lrt -Wl,--whole-archive -lpthread -Wl,--no-whole-archive buzzwords.cpp
+    @g++ -g -O2 -o buzzwords -std=gnu++23 buzzwords.cpp
+    @./cookie_selection
 
 # Cookie selection problem
 cookie-selection:
-    @# g++-14 -g -O2 -o cookie_selection -std=gnu++23 -static -lrt -Wl,--whole-archive -lpthread -Wl,--no-whole-archive cookie_selection.cpp
-    @g++ -g -O2 -o cookie_selection -std=gnu++23 cookie_selection.cpp
-    @./cookie_selection
+    @# pypy3 'cookie_selection.py'
+    @python3 'cookie_selection.py'
