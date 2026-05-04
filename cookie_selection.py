@@ -1,5 +1,4 @@
-print("Cookie Selection")
-
+#This solution implements a "median-heap" by combining a max-heap and min-heap
 import heapq
 import sys
 
@@ -21,7 +20,7 @@ for line in sys.stdin:
         if highMinHeap and n >= highMinHeap[0]:
             heapq.heappush(highMinHeap, n)
         else:
-            heapq.heappush(lowMaxHeap, -n) #negative to reverse maxheap to minheap
+            heapq.heappush(lowMaxHeap, -n) #negative to reverse max-heap to min-heap
 
 
         #rebalance
