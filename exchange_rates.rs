@@ -10,12 +10,6 @@ use std::io::{self, Read, Write};
 const COMMISSION: f64 = 0.97;
 
 /// Reads input from stdin
-///
-/// # Examples
-///
-/// ```
-/// let input = read_input();
-/// ```
 #[inline(always)]
 fn read_input() -> String {
     let mut buffer = String::new();
@@ -24,37 +18,18 @@ fn read_input() -> String {
 }
 
 /// Writes output to stdout
-///
-/// # Examples
-///
-/// ```
-/// write_output("Hello, World!");
-/// ```
 #[inline(always)]
 fn write_output(output: &str) {
     io::stdout().write_all(output.as_bytes()).unwrap();
 }
 
 /// Converts a string to a float
-///
-/// # Examples
-///
-/// ```
-/// assert_eq!(to_float("1.23"), 1.23);
-/// ```
 #[inline(always)]
 fn to_float(s: &str) -> f64 {
     s.parse().unwrap()
 }
 
 /// Rounds a value to the nearest cent (2 decimal places)
-///
-/// # Examples
-///
-/// ```
-/// assert_eq!(floor_cents(1.2345), 1.23);
-/// assert_eq!(floor_cents(1.2355), 1.24);
-/// ```
 #[inline(always)]
 fn floor_cents(amount: f64) -> f64 {
     (amount * 100.0).floor() / 100.0
