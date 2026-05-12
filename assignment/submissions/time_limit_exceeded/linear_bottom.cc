@@ -93,32 +93,24 @@ long long minimizePipe(std::vector<std::unordered_map<std::size_t, int>> &orig,
 
     long long desired_max_flow = maxFlow(orig, super_s, t, threshold);
 
-    int hi = orig[s_t][m_t];
-    int lo = 1;
-    long long current_max_flow{};
-    while (hi > lo) {
-        int mid = (hi - lo) / 2 + lo;
-        orig[s_t][m_t] = mid;
+    orig[s_t][m_t] = 0;
+    long long current_max_flow = maxFlow(orig, super_s, t, threshold);
+    while (current_max_flow < desired_max_flow) {
+        ++orig[s_t][m_t];
         current_max_flow = maxFlow(orig, super_s, t, threshold);
-
-        if (current_max_flow == desired_max_flow) {
-            hi = mid;
-        } else if (current_max_flow < desired_max_flow) {
-            lo = mid + 1;
-        }
     }
 
-    return hi;
+    return orig[s_t][m_t];
 }
 
 int main() {
-    std::size_t p{}, m{}, s_t{}, s_s{}, m_t{}, t{};
-    std::cin >> p >> m >> s_t >> s_s >> m_t >> t;
+    std::size_t p{}, s_t{}, s_s{}, m_t{}, t{};
+    std::cin >> p >> s_t >> s_s >> m_t >> t;
 
     std::vector<std::unordered_map<std::size_t, int>> graph(
         p + 1); // n + 1 for super source
     int threshold = 0;
-    for (std::size_t i = 0; i < m; ++i) {
+    for (std::size_t i = 0; i < p; ++i) {
         std::size_t u{}, v{};
         int c{};
         std::cin >> u >> v >> c;
