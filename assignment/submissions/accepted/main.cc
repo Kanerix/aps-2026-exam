@@ -118,7 +118,7 @@ int main() {
     std::vector<std::unordered_map<std::size_t, int>> graph(
         p + 1); // n + 1 for super source
     int threshold = 0;
-    for (std::size_t i = 0; i < m; ++i) {
+    for (std::size_t i = 0; i < p; ++i) {
         std::size_t u{}, v{};
         int c{};
         std::cin >> u >> v >> c;
