@@ -1,4 +1,4 @@
-#This solution implements a "median-heap" by combining a max-heap and min-heap
+#This solution implements a "median-heap" by combining a max-heap and min-heap to access the median value
 import heapq
 import sys
 
