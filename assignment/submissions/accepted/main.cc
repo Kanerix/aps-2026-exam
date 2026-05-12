@@ -112,8 +112,8 @@ long long minimizePipe(std::vector<std::unordered_map<std::size_t, int>> &orig,
 }
 
 int main() {
-    std::size_t p{}, m{}, s_t{}, s_s{}, m_t{}, t{};
-    std::cin >> p >> m >> s_t >> s_s >> m_t >> t;
+    std::size_t p{}, s_t{}, s_s{}, m_t{}, t{};
+    std::cin >> p >> s_t >> s_s >> m_t >> t;
 
     std::vector<std::unordered_map<std::size_t, int>> graph(
         p + 1); // n + 1 for super source
