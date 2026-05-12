@@ -6,8 +6,6 @@
 #include <utility>
 #include <vector>
 
-const int CONNECTION_S = 2;
-
 bool dfsMaxFlow(std::vector<std::unordered_map<std::size_t, int>> &graph,
                 std::vector<bool> &visited,
                 std::vector<std::pair<std::size_t, std::size_t>> &res,
@@ -90,17 +88,17 @@ long long maxFlow(const std::vector<std::unordered_map<std::size_t, int>> &orig,
 }
 
 long long minimizePipe(std::vector<std::unordered_map<std::size_t, int>> &orig,
-                       std::size_t super_s, std::size_t modifiable_s,
+                       std::size_t super_s, std::size_t s_t, std::size_t m_t,
                        std::size_t t, long threshold) {
 
     long long desired_max_flow = maxFlow(orig, super_s, t, threshold);
 
-    int hi = orig[modifiable_s][CONNECTION_S];
+    int hi = orig[s_t][m_t];
     int lo = 1;
     long long current_max_flow{};
     while (hi > lo) {
         int mid = (hi - lo) / 2 + lo;
-        orig[modifiable_s][CONNECTION_S] = mid;
+        orig[s_t][m_t] = mid;
         current_max_flow = maxFlow(orig, super_s, t, threshold);
 
         if (current_max_flow == desired_max_flow) {
@@ -114,11 +112,11 @@ long long minimizePipe(std::vector<std::unordered_map<std::size_t, int>> &orig,
 }
 
 int main() {
-    std::size_t n{}, m{}, modifiable_s{}, other_s{}, t{};
-    std::cin >> n >> m >> modifiable_s >> other_s >> t;
+    std::size_t p{}, m{}, s_t{}, s_s{}, m_t{}, t{};
+    std::cin >> p >> m >> s_t >> s_s >> m_t >> t;
 
     std::vector<std::unordered_map<std::size_t, int>> graph(
-        n + 1); // n + 1 for super source
+        p + 1); // n + 1 for super source
     int threshold = 0;
     for (std::size_t i = 0; i < m; ++i) {
         std::size_t u{}, v{};
@@ -129,7 +127,7 @@ int main() {
         threshold = std::max(threshold, c);
     }
 
-    addSuperSource(graph, modifiable_s, other_s);
-    long long max_flow = minimizePipe(graph, n, modifiable_s, t, threshold);
+    addSuperSource(graph, s_t, s_s);
+    long long max_flow = minimizePipe(graph, p, s_t, m_t, t, threshold);
     std::cout << max_flow << "\n";
 }

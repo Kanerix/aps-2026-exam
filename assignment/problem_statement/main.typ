@@ -15,11 +15,11 @@ Therefore, Bob has asked you to figure out how small a waste pipe can be install
 = Input
 The first line of input contains 6 integers:
 - $2<=p<=250$: the number of pipes
-- $1<=m<=n(n-1)$: the number of manifolds
-- $2<=s_t<=250$: the drain for the toilet, which Bob wants to minimize in size
-- $2<=s_s<=250$: the drain for the sink ($s_s!=s_t$)
-- $2<=t<=250$: the manifold which connects to the sewer ($t!=s_s, t!=s_t$)
-- $m_t$: the manifold which the toilet pipe connects to ($m_t!=s_s, m_t!=s_t$)
+- $1<=m<=p(p-1)$: the number of manifolds
+- $0<=s_t<=250$: the drain for the toilet, which Bob wants to minimize in size
+- $0<=s_s<=250$: the drain for the sink ($s_s!=s_t$)
+- $0<=m_t<=250$: the manifold which the toilet pipe connects to ($m_t!=s_s, m_t!=s_t$)
+- $0<=t<=250$: the manifold which connects to the sewer ($t!=s_s, t!=s_t, t!= m_t$)
 What follows is $p$ lines containing 3 integers $2<=v<=250$, $2<=u<=250$, $v!=u$, and $1<=c<=10^3$, indicating a pipe from manifold $v$ to manifold $u$ with a capacity of $c$.
 
 = Output
