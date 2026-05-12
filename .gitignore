@@ -9,5 +9,8 @@ buzzwords.*/
 # clangd
 .cache
 
+# c/c++
+**/a.out
+
 # typst
 **.pdf
