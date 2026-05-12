@@ -33,22 +33,6 @@ bool dfsMaxFlow(std::vector<std::unordered_map<std::size_t, int>> &graph,
     return false;
 }
 
-std::vector<std::pair<std::size_t, std::pair<std::size_t, int>>>
-flowGraph(std::vector<std::unordered_map<std::size_t, int>> &orig,
-          std::vector<std::unordered_map<std::size_t, int>> &mod) {
-    std::vector<std::pair<std::size_t, std::pair<std::size_t, int>>>
-        flow_graph{};
-    for (std::size_t u = 0; u < orig.size(); ++u) {
-        for (const auto &[v, cap] : orig[u]) {
-            int edge_flow = orig[u][v] - mod[u][v];
-            if (edge_flow > 0) {
-                flow_graph.push_back({u, {v, edge_flow}});
-            }
-        }
-    }
-    return flow_graph;
-}
-
 std::vector<std::unordered_map<std::size_t, int>> generateReverseEdges(
     const std::vector<std::unordered_map<std::size_t, int>> &orig) {
     auto graph = orig;

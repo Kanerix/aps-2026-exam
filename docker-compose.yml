@@ -1,0 +1,7 @@
+services:
+  problemtools:
+    image: problemtools/icpc
+    volumes:
+      - .:/assignment
+    stdin_open: true
+    tty: true
