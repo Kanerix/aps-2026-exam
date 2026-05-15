@@ -104,11 +104,11 @@ long long minimizePipe(std::vector<std::unordered_map<std::size_t, int>> &orig,
 }
 
 int main() {
-    std::size_t p{}, s_t{}, s_s{}, m_t{}, t{};
-    std::cin >> p >> s_t >> s_s >> m_t >> t;
+    std::size_t p{}, m{}, s_t{}, s_s{}, m_t{}, t{};
+    std::cin >> p >> m >> s_t >> s_s >> m_t >> t;
 
     std::vector<std::unordered_map<std::size_t, int>> graph(
-        p + 1); // n + 1 for super source
+        m + 1); // n + 1 for super source
     int threshold = 0;
     for (std::size_t i = 0; i < p; ++i) {
         std::size_t u{}, v{};
@@ -120,6 +120,6 @@ int main() {
     }
 
     addSuperSource(graph, s_t, s_s);
-    long long max_flow = minimizePipe(graph, p, s_t, m_t, t, threshold);
+    long long max_flow = minimizePipe(graph, m, s_t, m_t, t, threshold);
     std::cout << max_flow << "\n";
 }

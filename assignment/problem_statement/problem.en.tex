@@ -11,10 +11,11 @@ Bob now wants to install a new pipe with the smallest capacity, while not decrea
 Therefore, Bob has asked you to figure out how small a waste pipe can be installed without decreasing water flow.
 
 \begin{Input}
-The first line of input contains 5 integers:
+The first line of input contains 6 integers:
 
 \begin{itemize}
  \item $3 \le p \le 1000$: the number of pipes
+ \item $\left\lceil \frac{1+\sqrt{1+4p}}{2} \right\rceil \le m \le p+1$: the number of manifolds
  \item $s_t$: the drain for the toilet, which Bob wants to minimize in size
  \item $s_s$: the drain for the sink ($s_s \ne s_t$)
  \item $m_t$: the manifold which the toilet pipe connects to ($m_t \ne s_s$, $m_t \ne s_t$)

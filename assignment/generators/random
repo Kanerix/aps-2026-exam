@@ -50,7 +50,7 @@ def generate_graph(edge_count=1000, max_weight=10000):
             graph.add((u, v, random.randint(1, max_weight)))
 
     with open("random.in", "w") as f:
-        f.write(f"{edge_count} {source1} {source2} {m_s1} {terminal}\n")
+        f.write(f"{edge_count} {node_count} {source1} {source2} {m_s1} {terminal}\n")
         for edge in graph:
             f.write(f"{edge[0]} {edge[1]} {edge[2]}\n")
 
