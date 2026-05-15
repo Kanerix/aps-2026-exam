@@ -1,6 +1,4 @@
-#import "@preview/diagraph:0.3.7": *
-
-= Home Renovation
+\problemname{Home Renovation}
 Bob has recently been renovating his house, and he has finally gotten around to renovating his bathroom.
 Bob started off by removing his old sink and installing a new one.
 Now Bob has removed his toilet.
@@ -12,16 +10,23 @@ These two drain pipes connect to a larger pipe system made up of pipes and manif
 Bob now wants to install a new pipe with the smallest capacity, while not decreasing total water flow to the sewer.
 Therefore, Bob has asked you to figure out how small a waste pipe can be installed without decreasing water flow.
 
-= Input
+\begin{Input}
 The first line of input contains 5 integers:
-- $2<=p<=250$: the number of pipes
-- $s_t$: the drain for the toilet, which Bob wants to minimize in size
-- $s_s$: the drain for the sink ($s_s!=s_t$)
-- $m_t$: the manifold which the toilet pipe connects to ($m_t!=s_s, m_t!=s_t$)
-- $t$: the manifold which connects to the sewer ($t!=s_s, t!=s_t, t!= m_t$)
-What follows is $p$ lines containing 3 integers $v$, $u$, $v!=u$, and $1<=c<=10^4$, indicating a pipe from manifold $v$ to manifold $u$ with a capacity of $c$.
 
-It is guaranteed, that there always exists a pipe from $s_t$ to $m_t$, and that this is the only pipe originating from $s_t$
+\begin{itemize}
+ \item $3 \le p \le 1000$: the number of pipes
+ \item $s_t$: the drain for the toilet, which Bob wants to minimize in size
+ \item $s_s$: the drain for the sink ($s_s \ne s_t$)
+ \item $m_t$: the manifold which the toilet pipe connects to ($m_t \ne s_s$, $m_t \ne s_t$)
+ \item $t$: the manifold which connects to the sewer ($t \ne s_s$, $t \ne s_t$, $t \ne m_t$)
+\end{itemize}
+What follows is $p$ lines containing 3 integers $v$, $u$, $v \ne u$, and $1 \le c \le 10^4$, indicating a pipe from manifold $v$ to manifold $u$ with a capacity of $c$.
+\end{Input}
 
-= Output
+It is guaranteed, that there always exists a pipe from $s_t$ to $m_t$, and that this is the only pipe originating from $s_t$.
+Likewise, it is also guaranteed that both the toilet and sink drains contribute to the flow.
+
+\begin{Output}
 The output should contain exactly one integer, the minimum size of the waste pipe from the toilet, which does not impact the maximum water flow.
+\end{Output}
+
