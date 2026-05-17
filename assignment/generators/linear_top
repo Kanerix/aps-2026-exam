@@ -9,49 +9,49 @@ def generate_graph(edge_count=1000, max_weight=10000):
     node_count = random.randint(min_nodes, max_nodes)
     graph = set()
 
-    nodes = list(range(0, node_count))
+    nodes = list(range(0, node_count - 1))
     random.shuffle(nodes)
     in_graph = []
 
-    source1 = nodes.pop()
-    source2 = nodes.pop()
-    m_s1 = nodes.pop()
+    source = nodes.pop()
     terminal = nodes.pop()
 
     # Generate paths to terminal
-    path1 = (
-        [m_s1]
-        + random.sample(nodes, random.randint(0, int(len(nodes) / 2)))
-        + [terminal]
-    )
-    path2 = (
-        [source2]
-        + random.sample(nodes, random.randint(0, int(len(nodes) / 2)))
-        + [terminal]
-    )
+    path_count = random.randint(1, min_nodes)
+    paths = []
+    for _ in range(path_count):
+        paths.append(
+            [source]
+            + random.sample(nodes, random.randint(0, path_count - 1))
+            + [terminal]
+        )
 
     # One heavy "entrypoint" and otherwise small paths makes linear search from top to bottom slow
-    graph.add((source1, m_s1, max_weight))
-    for i in range(len(path1) - 1):
-        graph.add((path1[i], path1[i + 1], 1))
-        in_graph.append(path1[i])
+    m_s_path_idx = random.randint(0, path_count)
+    m_s = paths[m_s_path_idx][0]
+    m_t = paths[m_s_path_idx][1]
 
-    for i in range(len(path2) - 1):
-        graph.add((path2[i], path2[i + 1], 1))
-        if i != 0:
-            in_graph.append(path2[i])
+    for i in range(len(paths)):
+        for j in range(len(paths[i]) - 1):
+            if paths[i][j] == m_s:
+                graph.add((paths[i][j], paths[i][j + 1], max_weight))
+            else:
+                graph.add((paths[i][j], paths[i][j + 1], random.randint(1, max_weight)))
+            if paths[i][j] not in in_graph:
+                in_graph.append(paths[i][j])
 
     # Add edges randomly
     while len(graph) < edge_count:
         u = random.choice(in_graph)
-        v = random.randint(0, node_count)
+        v = random.randint(0, node_count - 1)
 
-        if v not in (source1, source2) and u != v and v != terminal:
-            in_graph.append(v)
+        if u != v:
             graph.add((u, v, random.randint(1, max_weight)))
+            if v != terminal:
+                in_graph.append(v)
 
     with open("linear_top.in", "w") as f:
-        f.write(f"{edge_count} {node_count} {source1} {source2} {m_s1} {terminal}\n")
+        f.write(f"{edge_count} {node_count} {source} {terminal} {m_s} {m_t}\n")
         for edge in graph:
             f.write(f"{edge[0]} {edge[1]} {edge[2]}\n")
 

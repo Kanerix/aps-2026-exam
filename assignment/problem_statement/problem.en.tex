@@ -1,14 +1,14 @@
-\problemname{Home Renovation}
-Bob has recently been renovating his house, and he has finally gotten around to renovating his bathroom.
-Bob started off by removing his old sink and installing a new one.
-Now Bob has removed his toilet.
+\problemname{Leaky Pipe}
+Bob the plumber works in a massive hydroelectric power plant, where massive pipes direct the flow of water through the plant.
+One pipe would flow into a manifold, which would then disperse the water into other pipes.
+Eventually all pipes would exhaust back into the river.
+This increased the water flow throughout the entire plant, and allowed for redirecting water during maintainace.
 
-Bob found the documentation on how the pipes were installed and realized it resembled a series of tubes.
-Water drains from the sink and toilet into one pipe each
-These two drain pipes connect to a larger pipe system made up of pipes and manifolds, which eventually drain into the sewer.
+However, today, disaster had struck, one of the pipes had begun to leak and it was important for it to be replaced as soon as possible.
+Bob found the piping and instrumentation diagram and quickly located the leaky pipe.
+As he looked at the pipe, he found the size to be a bit awkward, as it seemed oodly large for the pipes around it.
 
-Bob now wants to install a new pipe with the smallest capacity, while not decreasing total water flow to the sewer.
-Therefore, Bob has asked you to figure out how small a waste pipe can be installed without decreasing water flow.
+Now Bob wants to use this oppurtunity to decrease the size of the pipe or completely remove it, if at all possible.
 
 \begin{Input}
 The first line of input contains 6 integers:
@@ -16,18 +16,15 @@ The first line of input contains 6 integers:
 \begin{itemize}
  \item $3 \le p \le 1000$: the number of pipes
  \item $\left\lceil \frac{1+\sqrt{1+4p}}{2} \right\rceil \le m \le p+1$: the number of manifolds
- \item $s_t$: the drain for the toilet, which Bob wants to minimize in size
- \item $s_s$: the drain for the sink ($s_s \ne s_t$)
- \item $m_t$: the manifold which the toilet pipe connects to ($m_t \ne s_s$, $m_t \ne s_t$)
- \item $t$: the manifold which connects to the sewer ($t \ne s_s$, $t \ne s_t$, $t \ne m_t$)
+ \item $s$ the source for the pipe system
+ \item $t$: the river which all pipes exhaust into($t \ne s$)
+ \item $m_s$: the manifold of origin for broken pipe, which Bob wants to minimize in size ($m_s \ne t$)
+ \item $m_t$: the manifold of termination for the broken pipe, which Bob wants to ($m_t \ne m_s$)
 \end{itemize}
 What follows is $p$ lines containing 3 integers $v$, $u$, $v \ne u$, and $1 \le c \le 10^4$, indicating a pipe from manifold $v$ to manifold $u$ with a capacity of $c$.
 \end{Input}
 
-It is guaranteed, that there always exists a pipe from $s_t$ to $m_t$, and that this is the only pipe originating from $s_t$.
-Likewise, it is also guaranteed that both the toilet and sink drains contribute to the flow.
-
 \begin{Output}
-The output should contain exactly one integer, the minimum size of the waste pipe from the toilet, which does not impact the maximum water flow.
+The output should contain exactly one integer, the minimum size of the pipe from $m_s$ to $m_t$, which does not impact the maximum water flow.
 \end{Output}
 
