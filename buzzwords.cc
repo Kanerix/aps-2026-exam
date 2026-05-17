@@ -27,40 +27,28 @@ std::vector<long long> getPowers(std::vector<long long> &prefix_hashes) {
 int countDuplicateSubstrings(int len, std::string_view str,
                              std::vector<long long> &prefix_hashes,
                              std::vector<long long> &powers) {
-    std::vector<std::pair<long long, std::size_t>> hashes(
-        str.length() - static_cast<std::size_t>(len) + 1);
+    std::vector<long long> hashes(str.length() - static_cast<std::size_t>(len) +
+                                  1);
 
-    hashes[0] = {prefix_hashes[static_cast<std::size_t>(len) - 1], 0};
+    hashes[0] = prefix_hashes[static_cast<std::size_t>(len) - 1];
     for (std::size_t i = 1; i < hashes.size(); ++i) {
         std::size_t end_idx = i + static_cast<std::size_t>(len) - 1;
-        hashes[i] = {(prefix_hashes[end_idx] -
-                      prefix_hashes[i - 1] * powers[end_idx - i + 1]) %
-                         B,
-                     i};
-        if (hashes[i].first < 0) {
-            hashes[i].first += B;
+        hashes[i] = (prefix_hashes[end_idx] -
+                     prefix_hashes[i - 1] * powers[end_idx - i + 1]) %
+                    B;
+        if (hashes[i] < 0) {
+            hashes[i] += B;
         }
     }
 
-    std::sort(hashes.begin(), hashes.end(),
-              [](const std::pair<long long, std::size_t> first,
-                 const std::pair<long long, std::size_t> second) {
-                  if (first.first != second.first) {
-                      return first.first < second.first;
-                  }
-
-                  return first.second < second.second;
-              });
+    std::sort(hashes.begin(), hashes.end());
 
     int max = 1;
     int count = 1;
     for (std::size_t i = 1; i < hashes.size(); ++i) {
-        if (hashes[i].first != hashes[i - 1].first) {
+        if (hashes[i] != hashes[i - 1]) {
             count = 1;
-        } else if (str.substr(hashes[i].second,
-                              static_cast<std::size_t>(len)) ==
-                   str.substr(hashes[i - 1].second,
-                              static_cast<std::size_t>(len))) {
+        } else {
             ++count;
             max = std::max(count, max);
         }
