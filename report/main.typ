@@ -121,3 +121,13 @@ Potentially, max capacity could have remained at $10^3$ if our input generation 
 
 However, it seemed reasonable to simply increase the max capacity to $10^4$, as the intended solutions had no problems finishing within the time limit, while time limit exceed solutions instantly began exceeding the time limit.
 
+= Solved Problems
+
+== Buzzwords
+Buzzwords can be found at #link("https://open.kattis.com/problems/buzzwords").
+
+== Cookie Selection
+Cookie Selection can be found at #link("https://open.kattis.com/problems/cookieselection").
+
+== Exchange Rates
+Exchange Rates can be found at #link("https://open.kattis.com/problems/buzzwords").
