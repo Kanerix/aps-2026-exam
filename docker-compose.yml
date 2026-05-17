@@ -2,6 +2,6 @@ services:
   problemtools:
     image: problemtools/icpc
     volumes:
-      - .:/assignment
+      - .:/problem
     stdin_open: true
     tty: true

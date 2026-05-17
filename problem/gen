@@ -1,0 +1,6 @@
+#!/bin/sh
+fname=$1
+./generators/random
+mv random.in "$fname.in"
+./submissions/accepted/a.out <"$fname.in" >"$fname.ans"
+cat "$fname.ans"
