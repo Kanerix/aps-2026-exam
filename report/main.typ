@@ -14,12 +14,14 @@ As he looked at the pipe, he found the size to be a bit awkward, as it seemed oo
 Now Bob wants to use this oppurtunity to decrease the size of the pipe or completely remove it, if at all possible.
 ```
 == Accepted Solutions
-All intended solutions make use of Edmonds Karp max flow algorithm with DFS for path finding. // FIXME: is it even spelled like this?
-The choice of Edmonds Karp stems from the fact that Edmonds Karp's algorithm run in $O(E*V^2)$, which is an acceptable running time for this problem.
-Additionally, it also avoids the more performant yet difficult implementations of Max Flow such as Dinics // FIXME: how do you spell this?
+All intended solutions make use of Ford-Fulkerson's max flow algorithm.
+The choice of Ford Fulkerson stems from the a desire to allow any max flow algorithm to solve the problem.
+Therefore, it made sense to choose the least performant algorithm.
+It would be more efficient to solve the problem with Edmonds-Karp or Dinic's algorithm, however, a problem designed for a more efficient algorithm might exclude less efficient algorithms.
 
-Moreover, DFS was chosen over BFS, as it is simple to implement in a recursive manner, and the modifications required to generate a residual graph are simple to add.
-Like with the chose flow algorithm, BFS would also be able to solve this, it is a simple matter of preference.
+Ford-Fulkerson does result in less efficient graph traversal, as the running time is now bound by the max flow, which can be sent through the graph.
+This is due to the fact that DFS might not find a particularly efficient path to the terminal node, causing the algorithm to only increase max flow by one for each iteration.
+If there was a desire to exclude Ford-Fulkerson from the accepted solutions, a worst case input as just described would need to be generated.
 
 === Binary Search on Answer
 The initial intended solution was to run a max flow algorithm once, to get the current max flow of the entire graph, including the leaky pipe.
@@ -45,7 +47,7 @@ For this reason, the equality condition was updated to match greater than condit
 Likewise, the greater than condition was removed, as we are strictly searching for a pipe which is smaller than the current pipe, max flow can never increase.
 Therefore, since the only way to break out of the binary search, is when there are no elements left to search, this binary search will always run in $O(log(c))$, where $c$ is the capacity of the pipe to be replaced.
 
-Since each step in the binary search runs one instance of the Edmonds Karp algorithm, the resulting runtime for this solution is $O(log(c) * (E*V^2))$.
+Since each step in the binary search runs one instance of the Ford-Fulkerson's algorithm, the resulting runtime for this solution is $O(log(c) * (|E|*f_max))$, where $f_max$ is the max flow of the graph.
 
 While a more efficient solution using Dinics would run in $O(log(n) * "DINICSRUNTIME")$. // FIXME: what is Dinics runtime
 
@@ -69,7 +71,7 @@ The time limit exceeded solutions are based on the Binary Search Solution. // re
 There exist two time limit exceeded solutions, and both perform a linear search on the answer.
 One starts from the bottom and searches upwards, while another starts from the bottom and searches downwards.
 
-Both solutions using linear search have a running time of $O(c*E*V^2)$, as a linear search over the capacity of the pipe is performed, and for each step in the search, Edmonds Karp algorithm is performed.
+Both solutions using linear search have a running time of $O(c*|E|*f_max)$, as a linear search over the capacity of the pipe is performed, and for each step in the search, Ford-Fulkerson's algorithm is performed.
 This means that they quickly exceed the time limit, as the maximum pipe capacity is $10^4$, and $log(10^4) ~= 9)$, meaning such solutions are approximately $1000$ times slower than the intended Binary Search solution.
 
 == Wrong Solutions
