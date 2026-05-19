@@ -1,5 +1,5 @@
 == Buzzwords Solution
-```c++
+```cpp
 #include <iostream>
 #include <string>
 #include <string_view>
