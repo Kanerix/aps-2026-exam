@@ -1,4 +1,4 @@
-== Buzzwords
+== Buzzwords - mnni
 Buzzwords can be found at #link("https://open.kattis.com/problems/buzzwords").
 Buzzwords is a longest substring problem, where the input consists of a set of lines.
 Each line contains a combination of at least 1, and at most 1000 uppercase letters and spaces.

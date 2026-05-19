@@ -1,4 +1,4 @@
-== Cookie Selection
+== Cookie Selection - akdy
 Cookie Selection can be found at #link("https://open.kattis.com/problems/cookieselection").
 The problem is about receiving cookies of some diameter, storing them, and, when requested, extracting the median cookie.
 The input is at most 600 000 lines of either cookie size $n$, or "\#" when extracting a cookie.

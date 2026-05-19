@@ -15,3 +15,8 @@
 #include "chapters/buzzwords.typ"
 #include "chapters/cookie-selection.typ"
 #include "chapters/exchange-rates.typ"
+
+= Appendices
+#include "appendices/buzzwords_solution.typ"
+#include "appendices/cookie_selection_solution.typ"
+#include "appendices/exchange_rates_solution.typ"
