@@ -19,3 +19,8 @@ buzzwords:
 cookie-selection:
     @# pypy3 'cookie_selection.py'
     @python3 'cookie_selection.py'
+
+# Our assignment problem
+assignment:
+    @rustc -C opt-level=3 -C target-cpu=native --crate-type bin --edition 2021 assignment/submissions/accepted/main.rs -o homerenovation
+    cat assignment/data/sample/1.in | ./homerenovation
