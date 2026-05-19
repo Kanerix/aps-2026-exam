@@ -9,7 +9,7 @@ def generate_graph(edge_count=1000, max_weight=10000):
     node_count = random.randint(min_nodes, max_nodes)
     graph = set()
 
-    nodes = list(range(0, node_count - 1))
+    nodes = list(range(0, node_count))
     random.shuffle(nodes)
     in_graph = []
 
@@ -17,7 +17,11 @@ def generate_graph(edge_count=1000, max_weight=10000):
     terminal = nodes.pop()
 
     # Generate paths to terminal
-    path_count = random.randint(1, min_nodes)
+    if node_count >= 4:
+        path_count = random.randint(1, min_nodes // 4)
+    else:
+        path_count = 1
+
     paths = []
     for _ in range(path_count):
         paths.append(
@@ -27,8 +31,8 @@ def generate_graph(edge_count=1000, max_weight=10000):
         )
 
     # One heavy path and one light path makes linear search from bottom to top slow
-    m_s_path_idx = random.randint(0, path_count)
-    m_s_idx = random.randint(0, len(paths[m_s_path_idx]) - 1)
+    m_s_path_idx = random.randint(0, path_count - 1)
+    m_s_idx = random.randint(0, len(paths[m_s_path_idx]) - 2)
     m_s = paths[m_s_path_idx][m_s_idx]
     m_t = paths[m_s_path_idx][m_s_idx + 1]
 

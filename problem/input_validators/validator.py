@@ -28,8 +28,8 @@ terminal = int(parts[3])
 manifold_s = int(parts[4])
 manifold_t = int(parts[5])
 
-if pipes < 2 or pipes > 1000:
-    exit_error("Pipes must be in the interval 2<=p<=1000")
+if pipes < 1 or pipes > 1000:
+    exit_error("Pipes must be in the interval 1<=p<=1000")
 if source == terminal:
     exit_error("Source and terminal node may not be the same")
 if manifold_s == terminal:
