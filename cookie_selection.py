@@ -1,31 +1,29 @@
-#This solution implements a "median-heap" by combining a max-heap and min-heap to access the median value
 import heapq
 import sys
 
 
-lowMaxHeap = []
-highMinHeap = []
+maxHeap = []
+minHeap = []
 
 for line in sys.stdin:
     line = line.strip()
     if line == '#':
-        popValue = heapq.heappop(highMinHeap)
+        popValue = heapq.heappop(minHeap)
         print(popValue)
 
         #rebalance
-        if len(highMinHeap) < len(lowMaxHeap):
-            heapq.heappush(highMinHeap, -heapq.heappop(lowMaxHeap))
+        if len(minHeap) < len(maxHeap):
+            heapq.heappush(minHeap, -heapq.heappop(maxHeap))
     else:
         n = int(line)
-        if highMinHeap and n >= highMinHeap[0]:
-            heapq.heappush(highMinHeap, n)
+        if minHeap and n >= minHeap[0]:
+            heapq.heappush(minHeap, n)
         else:
-            heapq.heappush(lowMaxHeap, -n) #negative to reverse max-heap to min-heap
+            heapq.heappush(maxHeap, -n) #negative to reverse max-heap to min-heap
 
 
         #rebalance
-        if len(highMinHeap) > len(lowMaxHeap) + 1:
-            heapq.heappush(lowMaxHeap, -heapq.heappop(highMinHeap))
-        elif len(lowMaxHeap) > len(highMinHeap):
-            heapq.heappush(highMinHeap, -heapq.heappop(lowMaxHeap))
-
+        if len(minHeap) > len(maxHeap) + 1:
+            heapq.heappush(maxHeap, -heapq.heappop(minHeap))
+        elif len(maxHeap) > len(minHeap):
+            heapq.heappush(minHeap, -heapq.heappop(maxHeap))

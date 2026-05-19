@@ -156,12 +156,12 @@ All prefix hashes and powers can be computed in $O(l)$ time, where $l$ is the le
 
 With these two arrays calculated, it is now possible to calculate the hash value of any substring in $s$.
 The hash value of the substring is defined by
-$
-  h[a..b] = cases(
-    (h[b] − h[a − 1]p[b − a + 1]) % B "if" a > 0,
-    h[b] "if" a > 0
-  )
-$
+  $
+    h[a..b] = cases(
+      (h[b] − h[a − 1]p[b − a + 1]) % B "if" a > 0,
+      h[b] "if" a > 0
+    )
+  $
 where $h[a..b]$ is the substring from index $a$ to index $b$.
 
 The solution to Buzzwords uses this approach for hashing, as given $O(l)$ preprocessing, any substring hash value can be calculated in constant time.
@@ -204,6 +204,76 @@ This would result in the running time of the solution increasing to $O(l^3 log(l
 
 == Cookie Selection
 Cookie Selection can be found at #link("https://open.kattis.com/problems/cookieselection").
+The problem is about recieving cookies of some diameter, storing them, and, when requested, extracting the median cookie.
+The input is at most 600 000 lines of either cookie size n, or # when extracting a cookie. 
+n can be anything between 1 and 300 000 000. 
+The output must be the diameter of each cookie when it is extracted, in the order of extraction. 
+
+=== Solution
+There are two solutions to this problem. The first one uses a fenwick tree, and the second uses a combination of a min-heap and a max-heap. 
+
+==== Fenwick tree
+The fenwick tree solution wants an array where the value at index i is the partial sum of cookies with the rank of i. 
+This partial sums is: 
+  $
+    tree[k] = sumq(k − p(k)+1,k)
+  $
+where k − p(k)+1 is the lower bound, and k is the upper bound. This means that the partial sum at i cannot contain values higher than i. 
+
+The solution uses a coordinate compression so as to not have 300 000 000 entries in the array. This works because we know there will be at most 600 000 cookies. 
+This means that instead of having the value at i be cookie diameter, it is rank instead. 
+The first parse process starts with collecting all input into an array $vals$ while ignoring any #. 
+Afterwards, its moved to $vals$ while removing duplicates and sorting with pythons $timesort$. 
+Lastly the dictionary rank is build. 
+
+For the second parse, if the input is not a #, update(i, d) is called. 
+Update starts at i (the rank), and increments the value at every index where the partial sum contains the cookie's rank. This is done through bit manipulation:
+  $
+    i += i & -i
+  $
+where i is the index, jumping upwards intil i > m, where m is the length of the tree.
+
+If the input = #, mid(k) is called:
+  $
+    mid(n // 2 + 1)
+  $
+where we want the kth cookie, and n is incremented each time a cookie is added.
+When searching, we set nxt to: 
+  $
+    x + 2^i
+  $
+where x starts at 0, and i starts as the bit length of m (roughly log(m)), where m is the length of the sorted distinct values $coords$.
+In each iteration of the loop, we check if the partial sum at nxt is less than k; $fenwickTree[nxt] < k$ and if nxt is within bounds.  
+If yes, we know the kth element cannot be in the range, and therefore set x = nxt to pass it, while subtracting from k the partial sum at nxt to make up for what is skipped (such that it functions as a prefix sum).
+If no, we continue to the next iteration. After each iteration, i is decremented by 1, such that the search always narrows. Practically, this functions as a binary search. 
+After the last iteration, we will have moved x as close to the median cookie rank as possible, without moving past it. Therefore we return x+1. 
+$Coords$ is used for reverting the rank back to cookie diameter, and update(r, -1) is called to decrement the value at the appropriate ranks. 
+
+==== Min-heap max-heap
+The idea is to have both a min-heap and a max-heap, and have them constantly balanced such that the median value can always be accessed from popping the minheap.  
+This solution simply uses the built-in python min-heap to efficiently handle both pushing and popping. 
+The min-heap is reverted by inputting -n for input n, and -popping to revert it again, effectively making it a max-heap. 
+
+Rebalancing is done a single time after each operation if nessecary. 
+
+
+=== Running time discussion
+==== Fenwick tree
+The fenwick tree operations both have running time O(log m) where m is distinct cookie sizes, worst case m = N <= 600 000. 
+Update: O(log m) as the flipping of the bit can only happen at most log m times in the tree.
+Mid: O(log m) as it loops from $m.bit_length()$ down to 0
+The first parse is O(N), where N is the total lines of input. 
+Building the dict is O(N)
+Coordinate compression is O(N log N) with timesort. 
+
+==== Min-heap max-heap
+Push: O(log N) 
+Pop: O(log N)
+Total: O(N log N) 
+
+=== Worst case input
+As the operations themselves are always O(log m) or O(log N), the worst case input is simply 600 000 lines. 
+For the fenwick tree, an input potentially ordered in some way difficult for timesoft to handle could make things slightly slower. 
 
 == Exchange Rates
 Exchange Rates can be found at #link("https://open.kattis.com/problems/exchangerates").
