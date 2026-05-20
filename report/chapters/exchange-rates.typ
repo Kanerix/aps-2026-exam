@@ -1,28 +1,48 @@
 == Exchange Rates - kasjo
 Exchange Rates can be found at #link("https://open.kattis.com/problems/exchangerates").
 Exchange Rates is a dynamic programming problem.
-The input consists of a number of test cases, each beginning with $N$, the number of days that a crystal ball can predict.
-$N$ lines follow, each containing a real number representing the price of one U.S. dollar in Canadian dollars.
-The input is terminated by a test case with $N = 0$.
+The input consists of a number of test cases, each beginning with $<d<=365$, the number of days that a crystal ball can predict.
+$d$ lines follow, containing a real number representing the price of one U.S. dollar in Canadian dollars.
+The input is terminated by a test case with $d = 0$.
 
-For each test case, the output is the maximum amount of Canadian dollars it is possible to hold at the end of the last predicted day, assuming one starts with 1000 CAD and may switch all of one's money between currencies on any subset of the predicted days, in order.
+Each test case requires finding the maximum amount of Canadian dollars possible at the end of the last predicted day.
+You start with 1000 CAD.
+You may switch all of your money between currencies on any subset of the predicted days, in order.
 Each exchange is subject to a 3% commission, and the resulting amount is rounded down to the nearest cent.
 
+The output for each test case should contain a single real number, the maximum amount of CAD you can hold after $d$ days.
+
 === Solution
-This problem is solved by maintaining two running values: $"best_cad"$, the maximum amount of Canadian dollars one can hold at any point, and $"best_usd"$, the maximum amount of U.S. dollars one can hold at any point.
-Initially, $"best_cad" = 1000$ and $"best_usd" = 0$, given the fact that the starting capital is 1000 CAD.
+This problem can be considered a very small dynamic programming problem, even if the solution looks deceptively greedy, as there are only two subproblems to solve; exchanging, or not exchanging.
+
+This problem is solved by maintaining two running values: $"cad"_i$, the maximum amount of Canadian dollars one can hold at any point $i$, and $"usd"_i$, the maximum amount of U.S. dollars one can hold at any point $i$.
+Initially, $"cad"_0 = 1000$ and $"usd"_0 = 0$, given that the starting capital is $1000$ CAD.
 
 For each predicted day $i$ with exchange rate $r_i$ (CAD per USD), both values are updated greedily:
 $
-  "best_cad" & = max("best_cad", floor("best_usd" times r_i times 0.97)) \
-  "best_usd" & = max("best_usd", floor("best_cad" / r_i times 0.97))
+  "cad"_i = max("cad"_(i-1), floor("usd"_(i-1) * r_i * 0.97)) \
+  "usd"_i = max("usd"_(i-1), floor("cad"_(i-1) / r_i * 0.97))
 $
-The factor $0.97$ accounts for the 3% commission. The first update reflects converting all USD to CAD at the current rate, and the second reflects converting all CAD to USD.
-Because both updates use the values from before the current day.
+The factor $0.97$ accounts for the 3% commission.
+The first update reflects converting all USD to CAD at the current rate, and the second reflects converting all CAD to USD.
+This uses the best result for the previous day to calculate whether you would gain money from converting all your money from CAD to USD or vice versa.
+Both CAD and USD are stored, as this allows us to "regret" a given exchange if it later turns out not exchanging would have yielded better results.
 
-After processing all $N$ days, $"best_cad"$ holds the answer for the test case.
+Additionally, this is where they dynamic programming comes into play.
+The algorithm solves two problems at each step "at day $i$, how many USD/CAD could I have".
+The value for day $i$ is then used to compute the value day $i+1$.
+A greedy algorithm would instead commit to either USD or CAD based on the results of the current day $i$.
 
-The intuition is that this greedy approach is correct because the optimal strategy always consists of buying USD at a local minimum and selling at a local maximum.
-By always tracking the best possible CAD and USD amounts reachable up to the current day, the algorithm considers all such buy-and-sell combinations without enumerating them explicitly.
+After processing all $d$ days, $"cad"_d$ holds the answer for the test case.
 
-Since each day requires only a constant number of operations, the running time per test case is $O(N)$.
+The intuition is that this approach is correct because the optimal strategy always consists of buying USD at a local minimum and selling at a local maximum.
+By always tracking the best possible CAD and USD amounts reachable up to the current day $i$, the algorithm considers all such buy-and-sell combinations without enumerating them explicitly.
+
+The result of each day can be computed in a constant number of operations, $O(1)$.
+Likewise, there exist $d$ days to days to compute, therefore the running time of each test case must be $O(d)$.
+
+With this running time, it is safe to conclude, that this algorithm can solve this problem withing the time limit, as algorithms with $O(n)$ running times can solve problems with inputs of this size $10^6$. // TODO: cite that page.
+The only concern is how many test cases exist in the problem, but as this parameter is not given in the problem statement, it cannot be included in the analysis.
+
+=== Worst Case Inputs
+Given the input parameters and the linear time complexity, there exist no worst case inputs for this problem.
