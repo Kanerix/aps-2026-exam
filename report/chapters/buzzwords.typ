@@ -55,6 +55,7 @@ This means, that for each line $s$ of length $l$, the running time is $O(l^2 log
 Additionally, the input parameters state, that $l >= 1000$.
 Since our solution runs in $O(l_h log(l_h) * l)$, which, even with the extra logarithmic factor finish well within the time limit.
 This is the case, as solutions with a running time of $O(l^2)$ are expected to be able to solve problems with an input length of $l approx 5000$.
+@laaksonen2018competitive[p. 21]
 
 The only unknown factor here, is the number of lines, however, this is difficult to take into consideration, as not limit is imposed on it.
 

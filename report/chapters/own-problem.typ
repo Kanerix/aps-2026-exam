@@ -26,7 +26,8 @@ Both these algorithms are capable of finding the max flow of a graph in cubic ti
 These algorithms avoid the less efficient implementations such as using DFS for graph traversal.
 Using DFS for graph traversal can result in a graph traversal of $O(E*F_max)$, where $f_max$ is the max flow of the graph.
 
-The capacity scaling solution has a running time of $O(E^2*log(c))$. //TODO: refer to book
+The capacity scaling solution has a running time of $O(E^2*log(c))$.
+@laaksonen2018competitive[p. 185]
 The capacity is set to a large value, such as the highest edge weight in the graph.
 For each run of the path finding algorithm, this capacity is halved.
 This running time is therefore given, as the edges of the graph er traversed $E^2$ times, while the capacity is halved for each run.
@@ -112,7 +113,7 @@ This script was used to generate inputs of all sizes, creating 4 size categories
 This ensured that the max flow implementation could handle graphs on either extreme.
 
 Unfortunately, these scripts are not particularly sophisticated and were biased towards generating inputs where the solution was 0, meaning that a human had to cherry pick the inputs.
-This means that the inputs aren't completely random, as some of them had to be regenerated multiple times. // TODO: consider if this is true
+This means that the inputs aren't completely random, as some of them had to be regenerated multiple times.
 
 === Edge Case Inputs
 Some edge case inputs also exist.
@@ -140,7 +141,7 @@ Otherwise, this graph is completely random.
 This results in a graph where the least contribution to the maximum flow this path can have is $10^4$, ensuring bottom to top linear search is too slow.
 
 == Parameters
-There exist two parameters which can be modified, edge count and max capacity, all other parameters are randomly chosen based on the constraints imposed by those parameters. // FIXME: consider changing wording to something about only max weight and edge count being interesting
+There exist two parameters which can be modified, edge count and max capacity, all other parameters are randomly chosen based on the constraints imposed by those parameters.
 For example, the node count is randomly chosen within the possible number of nodes based on the edge count.
 
 The lower limits are not particularly interesting, as they are set to be the absolute least values, where inputs can still be generated.

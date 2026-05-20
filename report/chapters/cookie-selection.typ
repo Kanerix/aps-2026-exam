@@ -50,7 +50,8 @@ As outlined above, both operations on the Fenwick Tree having a running time whi
 Additionally, there exist $n$ cookies, which means that the total running time for this solution is $O(n*log(k))$.
 This is the case, as for each line of input, either `update` or `append` is called.
 The preprocessing runs in $O(n)$ and is therefore linearly dominated by the linearrithmic running time of the second parse.
-This running time is perfectly fine, as an algorithm with linearrithmic running time can compute problems where the input size $n$ is $n<=10^6$. // TODO: cite page 21 of the book
+This running time is perfectly fine, as an algorithm with linearrithmic running time can compute problems where the input size $n$ is $n<=10^6$.
+@laaksonen2018competitive[p. 21]
 
 ==== Median-heap
 The idea is to maintain a median-heap.

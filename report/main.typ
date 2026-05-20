@@ -39,3 +39,7 @@
 #include "appendices/cookie_selection_solution.typ"
 #pagebreak()
 #include "appendices/exchange_rates_solution.typ"
+
+#pagebreak()
+
+#bibliography("cite.bib")

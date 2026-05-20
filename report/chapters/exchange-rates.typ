@@ -41,7 +41,8 @@ By always tracking the best possible CAD and USD amounts reachable up to the cur
 The result of each day can be computed in a constant number of operations, $O(1)$.
 Likewise, there exist $d$ days to days to compute, therefore the running time of each test case must be $O(d)$.
 
-With this running time, it is safe to conclude, that this algorithm can solve this problem withing the time limit, as algorithms with $O(n)$ running times can solve problems with inputs of this size $10^6$. // TODO: cite that page.
+With this running time, it is safe to conclude, that this algorithm can solve this problem withing the time limit, as algorithms with $O(n)$ running times can solve problems with inputs of this size $10^6$.
+@laaksonen2018competitive[p. 21]
 The only concern is how many test cases exist in the problem, but as this parameter is not given in the problem statement, it cannot be included in the analysis.
 
 === Worst Case Inputs
