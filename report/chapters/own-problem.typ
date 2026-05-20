@@ -1,6 +1,7 @@
 = Own Kattis Problem - Leaky Pipes
 The Kattis Problem "Leaky Pipes" is a max flow problem where the solution requires at least two runs of any max flow algorithm.
 The problem statement for the issue is as follows.
+
 ```
 Bob the plumber works in a massive hydroelectric power plant, where massive pipes direct the flow of water through the plant.
 One pipe would flow into a manifold, which would then disperse the water into other pipes.
@@ -13,20 +14,33 @@ As he looked at the pipe, he found the size to be a bit awkward, as it seemed oo
 
 Now Bob wants to use this oppurtunity to decrease the size of the pipe or completely remove it, if at all possible.
 ```
-== Accepted Solutions
-All intended solutions make use of Ford-Fulkerson's max flow algorithm.
-The choice of Ford Fulkerson stems from the a desire to allow any max flow algorithm to solve the problem.
-Therefore, it made sense to choose the least performant algorithm.
-It would be more efficient to solve the problem with Edmonds-Karp or Dinic's algorithm, however, a problem designed for a more efficient algorithm might exclude less efficient algorithms.
 
-Ford-Fulkerson does result in less efficient graph traversal, as the running time is now bound by the max flow, which can be sent through the graph.
-This is due to the fact that DFS might not find a particularly efficient path to the terminal node, causing the algorithm to only increase max flow by one for each iteration.
-If there was a desire to exclude Ford-Fulkerson from the accepted solutions, a worst case input as just described would need to be generated.
+The actual problem, the user is tasked with is to figure out how much the broken pipe contributes to the overall flow of the graph.
+
+== Accepted Solutions
+All intended solutions use a variation of Ford-Fulkerson's max flow algorithm.
+However, the Python and c++ solutions implement different variants.
+The Python solutions implement the Edmonds-Karp algorithm, while the c++ solutions implement capacity scaling.
+Both these algorithms are capable of finding the max flow of a graph in cubic time.
+
+These algorithms avoid the less efficient implementations such as using DFS for graph traversal.
+Using DFS for graph traversal can result in a graph traversal of $O(E*F_max)$, where $f_max$ is the max flow of the graph.
+
+The capacity scaling solution has a running time of $O(E^2*log(c))$. //TODO: refer to book
+The capacity is set to a large value, such as the highest edge weight in the graph.
+For each run of the path finding algorithm, this capacity is halved.
+This running time is therefore given, as the edges of the graph er traversed $E^2$ times, while the capacity is halved for each run.
+Edges are reversed $E^2$ times, as each run if DFS consumes $E$ edges, and consumes one edge by modifying the graph.
+Additionally, DFS is run $E$ times in order to exhaust all edges of the graph.
+
+The Edmonds-Karp max flow algorithm runs in $O(E^2*V)$.
+This is given, as all edges are traversed through BFS.
+The argument for $E^2$ is the same as the argument in capacity scaling.
 
 === Binary Search on Answer
 The initial intended solution was to run a max flow algorithm once, to get the current max flow of the entire graph, including the leaky pipe.
-Instead of breaking out of the search on equality a search hit, hi would be updated.
-The only condition for breaking out of the search would be when lo became greater than hi.
+Instead of breaking out of the search on equality a search hit, `hi` would be updated.
+The only condition for breaking out of the search would be when lo became greater than `hi`.
 
 ```cpp
 while (hi > lo) {
@@ -47,9 +61,7 @@ For this reason, the equality condition was updated to match greater than condit
 Likewise, the greater than condition was removed, as we are strictly searching for a pipe which is smaller than the current pipe, max flow can never increase.
 Therefore, since the only way to break out of the binary search, is when there are no elements left to search, this binary search will always run in $O(log(c))$, where $c$ is the capacity of the pipe to be replaced.
 
-Since each step in the binary search runs one instance of the Ford-Fulkerson's algorithm, the resulting runtime for this solution is $O(log(c) * (|E|*f_max))$, where $f_max$ is the max flow of the graph.
-
-While a more efficient solution using Dinics would run in $O(log(n) * "DINICSRUNTIME")$. // FIXME: what is Dinics runtime
+Since each step in the binary search runs one instance of the max flow with capacity scaling, the resulting runtime for this solution is $O(log(c) * (E^2*log(c))) = O(E^2*log(c)^2)$.
 
 === Arithmetic
 An alternative, more efficient solution, was found while attempting to create wrong solutions.
@@ -62,20 +74,36 @@ Afterwards, one can simply subtract the original max flow with the max flow of t
 This will result in the minimal contribution, which the leaky pipe can have to the flow in the graph.
 
 This number is also the exact same value, as the smallest possible size the pipe can be while not decreasing the max flow of the graph.
-This results in a running time of $O(E*V^2)$, as the constant factor $2$ is cast ignored in big O notation.
+This results in a running time of $O(E^2*log(c))$, as the constant factor $2$ is cast ignored in big O notation.
 
 By intuition, this makes sense as well, as the smallest size the leaky pipe can be must be the same as the flow graph where the least amount of water flows through that specific pipe.
+
+Since the python version use Edmonds-Karp, the running version is slightly different, namely $O(E^2V)$.
+However, in practice, bot algorithms are efficient enough.
 
 == Time Limit Exceeded Solutions
 The time limit exceeded solutions are based on the Binary Search Solution. // refer to accepted
 There exist two time limit exceeded solutions, and both perform a linear search on the answer.
 One starts from the bottom and searches upwards, while another starts from the bottom and searches downwards.
 
-Both solutions using linear search have a running time of $O(c*|E|*f_max)$, as a linear search over the capacity of the pipe is performed, and for each step in the search, Ford-Fulkerson's algorithm is performed.
+Both solutions using linear search have a running time of $O(c*E^2*log(c)^2)$, as a linear search over the capacity of the pipe is performed, and for each step in the search, the capacity scaling max flow algorithm is performed.
 This means that they quickly exceed the time limit, as the maximum pipe capacity is $10^4$, and $log(10^4) approx 9$, meaning such solutions are approximately $1000$ times slower than the intended Binary Search solution.
 
 == Wrong Solutions
-// TODO
+The wrong solution is based on a misunderstanding, which some of our peers experienced when they were shown the problem.
+Namely, some people though that they were simply supposed to remove the broken pipe and calculate the max flow of the graph without the pipe.
+This assumption is reasonable.
+However, it fails to understand the actual problem, which requires the user to calculate the contribution of the broken pipe.
+
+There exist no specific inputs to ensure that this solution fails, as it will fail all inputs.
+
+== Run Time Exception Solution
+There exists one runtime exception solution.
+This solution is a solution, which fails to properly generate the residual graph.
+It is based on the python solution, however, during the generation of the residual graph, which is done after the first run of BFS, reverse edges are not added, neither actively nor lazily.
+This means that program encounters a runtime error, as it attempts to look up reverse edges, which have not been added.
+
+Like with the wrong solution, there exist no specific input, which tests this, as this will fail all max flow inputs.
 
 == Input Generation
 All input generation occurred through the use of Python scripts, which can be found in the `generators/` directory of the Kattis Problem.
@@ -83,8 +111,19 @@ The most oft used input generator, `random` generates a completely random graph,
 This script was used to generate inputs of all sizes, creating 4 size categories, and 5 capacity categories, which resulted in 20 randomized input cases.
 This ensured that the max flow implementation could handle graphs on either extreme.
 
-Unfortunately, these scripts are not particularly sophisticated, and would often crash, likewise the generators were biased towards generating inputs where the solution was 1, meaning that a human had to cherry pick the inputs.
+Unfortunately, these scripts are not particularly sophisticated and were biased towards generating inputs where the solution was 0, meaning that a human had to cherry pick the inputs.
 This means that the inputs aren't completely random, as some of them had to be regenerated multiple times. // TODO: consider if this is true
+
+=== Edge Case Inputs
+Some edge case inputs also exist.
+These inputs were generated by using the random input generator and then afterwards manually adjusting them to satisfy the edge cases, which they test.
+
+The first edge case input was an input where there is only one edge, straight from the source to terminal.
+Additionally, the broken pipe was also the edge between the source and terminal.
+This meant that the algorithm had to exit after the very first run.
+
+Another edge case which handled loops with the broken pipe was created.
+This was created to ensure that the path finding algorithm handled loops correctly.
 
 === Time Limit Exceeded Input Generators
 The time limit exceeded input generators are based on the `random` input generator, however, unlike random, they are not completely random.
@@ -107,9 +146,10 @@ For example, the node count is randomly chosen within the possible number of nod
 The lower limits are not particularly interesting, as they are set to be the absolute least values, where inputs can still be generated.
 
 === Edge Count
-Edge count was set to $10^3$, as it was also important, that the graph traversal part was difficult.
+Edge count was set to $10^3$, as it was important, that the graph traversal part of the problem was difficult.
 We tried with lower values which seemed to suffice, however, to ensure that the max flow algorithm was efficient and didn't include mistakes which caused wasteful computation, we decided to set this limit a bit higher.
-We also compared this limit with other max flow problems on Kattis, and noticed that $10^3$ was within the same order of magnitude, we deemed this to be an acceptable upper limit.
+This might also make Edmonds-Karp with DFS struggle to finish withing the running time, as the running time of this algorithm is heavily impacted by max flow of the entire graph.
+We also compared this limit with other max flow problems on Kattis, and noticed that $10^3$ was within the same order of magnitude, which helped us deem this to be an acceptable upper limit.
 
 === Max Capacity
 Max capacity was chosen to be $10^4$, as the intended solution was to perform binary search over the capacity of the pipe.
@@ -120,4 +160,3 @@ When `verifyproblem` was run, the time limit exceeded solutions would either fin
 Potentially, max capacity could have remained at $10^3$ if our input generation was more sophisticated and was able to generate more difficult graphs rather than only generating completely random graphs.
 
 However, it seemed reasonable to simply increase the max capacity to $10^4$, as the intended solutions had no problems finishing within the time limit, while time limit exceed solutions instantly began exceeding the time limit.
-
