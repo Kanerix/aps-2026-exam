@@ -2,20 +2,21 @@
 ```python
 import sys
 
+
 def main():
     data = sys.stdin.read().split()
 
-    vals = [int(x) for x in data if x != '#']
+    vals = [int(x) for x in data if x != "#"]
     coords = sorted(set(vals))
-    rank = {v: i+1 for i, v in enumerate(coords)}
+    rank = {v: i + 1 for i, v in enumerate(coords)}
     m = len(coords)
 
     fenwickTree = [0] * (m + 1)
 
-    def update(i, d):
-        while i <= m:
-            fenwickTree[i] += d
-            i += i & -i
+    def update(k, d):
+        while k <= m:
+            fenwickTree[k] += d
+            k += k & -k
 
     def mid(k):
         x = 0
@@ -29,7 +30,7 @@ def main():
     n = 0
     out = []
     for x in data:
-        if x == '#':
+        if x == "#":
             r = mid(n // 2 + 1)
             out.append(coords[r - 1])
             update(r, -1)
@@ -38,7 +39,8 @@ def main():
             update(rank[int(x)], 1)
             n += 1
 
-    print('\n'.join(map(str, out)))
+    print("\n".join(map(str, out)))
+
 
 main()
 ```
