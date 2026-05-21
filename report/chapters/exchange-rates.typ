@@ -1,9 +1,9 @@
 == Exchange Rates - kasjo
 Exchange Rates can be found at #link("https://open.kattis.com/problems/exchangerates").
 Exchange Rates is a dynamic programming problem.
-The input consists of a number of test cases, each beginning with $<d<=365$, the number of days that a crystal ball can predict.
+The input consists of a number of test cases, each beginning with $1<d<=365$, the number of days that a crystal ball can predict.
 $d$ lines follow, containing a real number representing the price of one U.S. dollar in Canadian dollars.
-The input is terminated by a test case with $d = 0$.
+The input is terminated by a test case where $d=0$.
 
 Each test case requires finding the maximum amount of Canadian dollars possible at the end of the last predicted day.
 You start with 1000 CAD.
@@ -32,7 +32,6 @@ Additionally, this is where they dynamic programming comes into play.
 The algorithm solves two problems at each step "at day $i$, how many USD/CAD could I have".
 The value for day $i$ is then used to compute the value day $i+1$.
 A greedy algorithm would instead commit to either USD or CAD based on the results of the current day $i$.
-
 After processing all $d$ days, $"cad"_d$ holds the answer for the test case.
 
 The intuition is that this approach is correct because the optimal strategy always consists of buying USD at a local minimum and selling at a local maximum.
@@ -40,7 +39,6 @@ By always tracking the best possible CAD and USD amounts reachable up to the cur
 
 The result of each day can be computed in a constant number of operations, $O(1)$.
 Likewise, there exist $d$ days to days to compute, therefore the running time of each test case must be $O(d)$.
-
 With this running time, it is safe to conclude, that this algorithm can solve this problem withing the time limit, as algorithms with $O(n)$ running times can solve problems with inputs of this size $10^6$.
 @laaksonen2018competitive[p. 21]
 The only concern is how many test cases exist in the problem, but as this parameter is not given in the problem statement, it cannot be included in the analysis.
