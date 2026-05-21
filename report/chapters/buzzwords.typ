@@ -1,4 +1,4 @@
-== Buzzwords - mnni
+== Buzzwords
 Buzzwords can be found at #link("https://open.kattis.com/problems/buzzwords").
 Buzzwords is a longest substring problem, where the input consists of a set of lines.
 Each line contains a combination of at least $1$, and at most $1000$ uppercase letters and spaces.
@@ -8,7 +8,7 @@ For each line, the output should contain a sequence of lines, each with an integ
 The first line should contain the number of repeated substrings of the length $1$, excluding spaces, the second line, the number of repeated substrings of length 2.
 This should continue until no repeated substrings exist, at which point, a blank line should be output.
 
-=== Solution
+=== Solution & Time Complexity
 There are multiple ways to solve this problem.
 Our solution uses a rolling hash with a polynomial hashing function.
 

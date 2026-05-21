@@ -1,4 +1,4 @@
-== Exchange Rates - kasjo
+== Exchange Rates
 Exchange Rates can be found at #link("https://open.kattis.com/problems/exchangerates").
 Exchange Rates is a dynamic programming problem.
 The input consists of a number of test cases, each beginning with $1<d<=365$, the number of days that a crystal ball can predict.
@@ -12,7 +12,7 @@ Each exchange is subject to a 3% commission, and the resulting amount is rounded
 
 The output for each test case should contain a single real number, the maximum amount of CAD you can hold after $d$ days.
 
-=== Solution
+=== Solution & Time Complexity
 This problem can be considered a very small dynamic programming problem, even if the solution looks deceptively greedy, as there are only two subproblems to solve; exchanging, or not exchanging.
 
 This problem is solved by maintaining two running values: $"cad"_i$, the maximum amount of Canadian dollars one can hold at any point $i$, and $"usd"_i$, the maximum amount of U.S. dollars one can hold at any point $i$.

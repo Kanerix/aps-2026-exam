@@ -1,11 +1,11 @@
-== Cookie Selection - akdy
+== Cookie Selection
 Cookie Selection can be found at #link("https://open.kattis.com/problems/cookieselection").
 The problem is about receiving cookies of some diameter $d$, storing them, and, when requested, extracting the median cookie.
 The input is at most $1 <= n <= 600000$ lines of either cookie size $d$, or "\#" which means you must print the size of the median cookie and stop tracking it.
 The value of $d$ must be in the interval $1 <= d <= 300000000$.
 The output must be the diameter of each cookie when it is extracted, in the order of extraction.
 
-=== Solution & Running Time
+=== Solution & Time Complexity
 There are multiple solutions to this problem.
 The following includes two potential solutions.
 The first one uses a Fenwick tree, and the second uses a combination of a min-heap and a max-heap, henceforth referred to as a median-heap.
