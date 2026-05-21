@@ -8,7 +8,7 @@ The output must be the diameter of each cookie when it is extracted, in the orde
 === Solution & Time Complexity
 There are multiple solutions to this problem.
 The following includes two potential solutions.
-The first one uses a Fenwick tree, and the second uses a combination of a min-heap and a max-heap, henceforth referred to as a median-heap.
+The first one uses a Fenwick tree, and the second uses a combination of a min heap and a max heap, henceforth referred to as a median heap.
 
 ==== Fenwick Tree
 The Fenwick Tree solution is backed by an array where the value at index $k$ is the partial sum of values prior to $k$.
@@ -16,14 +16,14 @@ This partial sums is defined as
 $
   "tree"[k] = "sum"_q(k − p(k)+1, k)
 $
-where $p(k)$ is the larges power of 2, which divides $k$.
-$"sum"_q(a,b)$ defines the value sum of values with the range $a$ ending at $b$.
+where $p(k)$ is the largest power of 2, which divides $k$.
+$"sum"_q(a,b)$ defines the sum of values with the range $a$ ending at $b$.
 Since $a$ is defined by $p(k)$, the ranges which $"sum"_q$ cover increase, as the index value $b$ does.
 
 The solution compresses the diameters of the cookies, as this avoids storing an array of length $300000000$ in memory.
 Instead, cookie diameter is compressed into ranks, meaning, for example, that the least cookie diameter has rank 1.
-#footnote[Fenwick Trees start at index to ease implementation]
-This is done by first parsing the entire input, skipping "\#" characters and storing them in a list.
+#footnote[Fenwick Trees start at index $1$ to ease implementation]
+This is done by first parsing the entire input, skipping "\#" characters and storing the cookie diameters in a list.
 Afterwards, this list is sorted, and finally they are stored in a dictionary, where diameter $d$ point to the corresponding rank.
 With this in place, the Fenwick tree can be constructed, where the backing array contains an index for each rank.
 This allows us to perform queries on the cookie weights in the Fenwick Tree, which uses an index from 1 to $n$.

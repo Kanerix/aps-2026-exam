@@ -58,7 +58,7 @@ Since our solution runs in $O(l^2*log(l))$, which, even with the extra logarithm
 This is the case, as solutions with a running time of $O(n^2)$ are expected to be able to solve problems with an input length of $l approx 5000$.
 @laaksonen2018competitive[p. 21]
 
-The only unknown factor here, is the number of lines, however, this is impossible to take into consideration, as not limit is imposed on it.
+The only unknown factor here, is the number of lines, however, this is impossible to take into consideration, as no limit is imposed on it.
 
 === Worst Case Inputs
 There exist two types of inputs which are particularly troubling for our solution.
