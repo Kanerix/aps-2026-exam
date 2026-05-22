@@ -2,22 +2,15 @@
 
 = Own Kattis Problem - Leaky Pipes
 The Kattis Problem "Leaky Pipes" is a max flow problem where the solution requires at least two runs of any max flow algorithm.
-The problem statement for the issue is as follows.
+The problem is about a plumber, Bob, who works on a hydroelectric power plant.
+In the power plant, there is a large system of pipes, which perfectly resembles a graph.
+Water flows in from one entry point, effectively the source node, and flows into the river, the terminal node.
 
-```
-Bob the plumber works in a massive hydroelectric power plant, where massive pipes direct the flow of water through the plant.
-One pipe would flow into a manifold, which would then disperse the water into other pipes.
-Eventually all pipes would exhaust back into the river.
-This increased the water flow throughout the entire plant, and allowed for redirecting water during maintainace.
+One day, Bob discovers, that one of the pipes in the power plant has begun to leak.
+Bob needs to have this pipe replaced as soon as possible.
+However, before purchasing a new pipe, bob wants to see if a smaller pipe could fit, without decreasing the maximum flow of the graph.
 
-However, today, disaster had struck, one of the pipes had begun to leak and it was important for it to be replaced as soon as possible.
-Bob found the piping and instrumentation diagram and quickly located the leaky pipe.
-As he looked at the pipe, he found the size to be a bit awkward, as it seemed oodly large for the pipes around it.
-
-Now Bob wants to use this oppurtunity to decrease the size of the pipe or completely remove it, if at all possible.
-```
-
-This problem statement describes a problem, where the developer is tasked with calculating the minimum contribution of a specific edge to the total max flow.
+This describes a problem, where the developer is tasked with calculating the minimum contribution of a specific edge to the total max flow.
 #figure(
   align(center)[
     #raw-render(
