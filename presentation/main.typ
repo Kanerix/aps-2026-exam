@@ -36,10 +36,11 @@
 
 == Cookie Selection
 === Input
-- tasks: $1<=n<=600000$
+- tasks: $1<=t<=600000$
+  - cookies and \#: $m<=n, n+m=t$
 - diameter: $1<=d<=300000000$
 
 === Time Complexity
-- preprocessing: $O(m*log(m))$, not $O(n)$
+- preprocessing: $O(n+m*log(m))$, not $O(n)$
 - lookup: $O(log(m))$
 - total: $O(n*log(m))$
