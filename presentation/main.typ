@@ -36,8 +36,8 @@
 
 == Cookie Selection
 === Input
-- tasks: $1<=t<=600000$
-  - cookies and \#: $m<=n, n+m=t$
+- tasks: $1<=n<=600000$
+  - $1<=m<=n<=600000$ 
 - diameter: $1<=d<=300000000$
 
 === Time Complexity
